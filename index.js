@@ -13,12 +13,15 @@ app.get('/:input', function(req, res) {
         validUnix = /(?:^\d+$)/.test(timeInput);
     if (validNat || validUnix) {
         var date = new Date(validUnix ? +timeInput : timeInput);
-        console.log(date);
-        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        unix = date.getTime();
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        unix = date.getTime() / 1000;
         natural = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
     }
     res.send(JSON.stringify({ unix: unix, natural: natural }));
 });
 
-app.listen(process.env.PORT || 8080);
+app.get('/', function(req, res) {
+    res.send('This is an FCC timestamp API. Send natural date (December 12, 2015) or Unix timestamp (1450137600) and we will return a JSON object.');
+});
+
+app.listen(process.env.PORT || 5000);
