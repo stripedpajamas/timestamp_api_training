@@ -21,4 +21,4 @@ app.get('/:input', function(req, res) {
     res.send(JSON.stringify({ unix: unix, natural: natural }));
 });
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
